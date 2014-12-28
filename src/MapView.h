@@ -11,6 +11,7 @@
 #define MAPVIEW_H
 
 #include "cinder/Vector.h"
+#include "cinder/Cinder.h"
 #include "cinder/Camera.h"
 #include "Types.h"
 #include "ViewCtx.h"

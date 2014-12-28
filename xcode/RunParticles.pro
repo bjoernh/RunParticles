@@ -1,6 +1,6 @@
 win32 {
 TEMPLATE=vcapp
-CINDER="../cinder_0.8.2_vc2008"
+CINDER="C:\cinder_0.8.6_vc2013"
 }
 
 macx {

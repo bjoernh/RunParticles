@@ -9,14 +9,17 @@
 #ifndef __RunParticles__GLWidget__
 #define __RunParticles__GLWidget__
 
+#include "cinder/Cinder.h"
+#include "cinder/gl/GLee.h"
+
+#include "cinder/Camera.h"
+
 #include <QElapsedTimer>
 #include <QGLWidget>
 #include <QMouseEvent>
 #include <QSize>
 #include <QTimer>
 #include <iostream>
-
-#include "cinder/Camera.h"
 
 #include "BoundingBox.h"
 #include "Map.h"

@@ -14,7 +14,7 @@
 
 MainWindow::MainWindow(QWidget * parent,
                        Qt::WindowFlags flags) :
-    QMainWindow::QMainWindow(parent, flags),
+    QMainWindow(parent, flags),
     _fileIO(new MapFileIO(this)),
     _menuBar(new QMenuBar(0)),
     _glWidget(new GLWidget()),

@@ -1,13 +1,25 @@
 #include "Util.h"
 
+#include <Qt>
+
+#ifdef Q_OS_WIN
+#include <QDateTime>
+#else
 #include <time.h>
+#endif
 
 unsigned int 
 Util::parseTime(const char* timeCStr) 
 {
+#ifdef Q_OS_WIN
+    // 2014-12-06T15:00:06Z
+    QDateTime myDate = QDateTime::fromString(timeCStr, "yyyy-MM-ddThh:mm:ssZ");
+    return static_cast<uint>(myDate.toTime_t());
+#else
     struct tm thisTime;
     strptime(timeCStr, "%Y-%m-%dT%H:%M:%SZ", &thisTime);
     return static_cast<uint>(timegm(&thisTime));
+#endif
 };
 
 QString

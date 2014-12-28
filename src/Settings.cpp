@@ -11,7 +11,11 @@
 #include <QApplication>
 #include <QDesktopWidget>
 
+#ifdef Q_OS_WIN
+#include <Shlwapi.h>
+#else
 #include <fnmatch.h>
+#endif
 
 TrackStyleRule::TrackStyleRule() :
     pattern("*"),
@@ -63,10 +67,19 @@ TrackStyleRule
 TrackStyleRules::getStyleForTrackType(const QString &type) const
 {
     TrackStyleRule myPref;
+#ifdef Q_OS_WIN
+    LPCWSTR theType = type.toStdWString().c_str();
+#else
     const char* theType = type.toStdString().c_str();
+#endif
     foreach(myPref, prefs) {
+#ifdef Q_OS_WIN
+        LPCWSTR myPattern = myPref.pattern.toStdWString().c_str();
+        if (PathMatchSpecEx(myPattern, theType, PMSF_NORMAL) == S_OK) {
+#else
         const char* myPattern = myPref.pattern.toStdString().c_str();
         if (fnmatch(myPattern, theType, FNM_PATHNAME) == 0) {
+#endif
             return myPref;
         }
     }
