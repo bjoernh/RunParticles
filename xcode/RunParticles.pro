@@ -1,4 +1,14 @@
+
+CONFIG += qt
+
+CONFIG += release
+
+TEMPLATE = app
+
+ICON = RunParticles.icns
+
 win32 {
+#CONFIG += static
 TEMPLATE=vcapp
 CINDER="C:\cinder_0.8.6_vc2013"
 }
@@ -14,27 +24,25 @@ INCLUDEPATH += $${CINDER}/boost/
 INCLUDEPATH += $${CINDER}/boost/boost/
 
 win32 {
+ARCH = x64
 debug {
-LIBS += $${CINDER}/lib/cinder_d.lib
-LIBS += $${CINDER}"/lib/msw/libboost_date_time-vc90-mt-sgd-1_44.lib"
-LIBS += $${CINDER}"/lib/msw/libboost_filesystem-vc90-mt-sgd-1_44.lib"
-LIBS += $${CINDER}"/lib/msw/libboost_system-vc90-mt-sgd-1_44.lib"
-LIBS += $${CINDER}"/lib/msw/libboost_thread-vc90-mt-sgd-1_44.lib"
+LIBS += $${CINDER}/lib/msw/$${ARCH}/cinder-v120_d.lib
 } else {
-LIBS += $${CINDER}/lib/cinder.lib
-LIBS += $${CINDER}"/lib/msw/libboost_date_time-vc90-mt-s-1_44.lib"
-LIBS += $${CINDER}"/lib/msw/libboost_filesystem-vc90-mt-s-1_44.lib"
-LIBS += $${CINDER}"/lib/msw/libboost_system-vc90-mt-s-1_44.lib"
-LIBS += $${CINDER}"/lib/msw/libboost_thread-vc90-mt-s-1_44.lib"
+LIBS += $${CINDER}/lib/msw/$${ARCH}/cinder-v120.lib
 }
-LIBS += $${CINDER}"/lib/msw/atls.lib"
-LIBS += $${CINDER}"/lib/msw/atlthunk.lib"
-LIBS += $${CINDER}"/lib/msw/cairo-static.lib"
-LIBS += $${CINDER}"/lib/msw/pixman-1.lib"
-LIBS += $${CINDER}"/lib/msw/libpng.lib"
-LIBS += $${CINDER}"/lib/msw/libjpeg.lib"
-LIBS += $${CINDER}"/lib/msw/Wldap32.lib"
-LIBS += $${CINDER}"/lib/msw/zlib.lib"
+#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_chrono-vc120-mt-sgd-1_55.lib"
+#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_date_time-vc120-mt-sgd-1_55.lib"
+#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_filesystem-vc120-mt-s-1_55.lib"
+#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_system-vc120-mt-sgd-1_55.lib"
+#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_thread-vc120-mt-sgd-1_55.lib"
+#LIBS += $${CINDER}"/lib/msw/atls.lib"
+#LIBS += $${CINDER}"/lib/msw/atlthunk.lib"
+#LIBS += $${CINDER}"/lib/msw/cairo-static.lib"
+#LIBS += $${CINDER}"/lib/msw/pixman-1.lib"
+#LIBS += $${CINDER}"/lib/msw/libpng.lib"
+#LIBS += $${CINDER}"/lib/msw/libjpeg.lib"
+#LIBS += $${CINDER}"/lib/msw/Wldap32.lib"
+#LIBS += $${CINDER}"/lib/msw/x86/zlib.lib"
 }
 
 macx {
@@ -87,12 +95,6 @@ QMAKE_MAC_XCODE_SETTINGS += XCODE_COMPILER_LIBRARY
 ARCHES -= i386
 QMAKE_MAC_SDK = macosx
 }
-
-CONFIG += qt
-
-TEMPLATE = app
-
-ICON = RunParticles.icns
 
 HEADERS = ../src/AboutDialog.h \
           ../src/BoundingBox.h \
