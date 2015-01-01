@@ -11,6 +11,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkDiskCache>
 
+#ifndef Q_MOC_RUN
 #include "AboutDialog.h"
 #include "ExportImageDialog.h"
 #include "GLWidget.h"
@@ -21,6 +22,7 @@
 #include "Settings.h"
 #include "TrackFileReader.h"
 #include "TrackLayer.h"
+#endif
 
 class MainWindow : public QMainWindow
 {

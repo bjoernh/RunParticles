@@ -1,6 +1,7 @@
 #ifndef OSMLAYER_H
 #define OSMLAYER_H
 
+#ifndef Q_MOC_RUN
 #include "Layer.h"
 #include "OsmTileSource.h"
 #include "Types.h"
@@ -18,6 +19,7 @@
 #include "cinder/Text.h"
 
 #include <unordered_map>
+#endif
 
 #include <QObject>
 #include <QGLShaderProgram>

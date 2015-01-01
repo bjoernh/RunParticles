@@ -28,7 +28,7 @@ enum {
     PassLayer_MidGround = 50,
     PassLayer_Foreground = 100,
     PassLayer_Count
-} PassLayer;
+};
 
 class LonLat : public Vec2d
 {
