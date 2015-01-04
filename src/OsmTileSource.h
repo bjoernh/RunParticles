@@ -84,7 +84,7 @@ class OsmTileSource : public QObject
         unsigned int _lastAccess;
     };
     
-    const QByteArray DEFAULT_USER_AGENT = "RunParticles";
+    static const QByteArray DEFAULT_USER_AGENT;
     
     typedef std::shared_ptr<OsmTile> OsmTileRef;
     

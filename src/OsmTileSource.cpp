@@ -11,6 +11,8 @@
 
 unsigned int OsmTileSource::OsmTile::_accessCount = 0;
 
+const QByteArray OsmTileSource::DEFAULT_USER_AGENT = "RunParticles";
+
 OsmTileSource::OsmTile::OsmTile(OsmIndex idx, cinder::Surface *surf)
 : index(idx), _surface(surf), _lastAccess(++_accessCount)
 {
