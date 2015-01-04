@@ -1,7 +1,7 @@
 
 CONFIG += qt
 
-CONFIG += release
+CONFIG += debug
 
 TEMPLATE = app
 
@@ -10,7 +10,8 @@ ICON = RunParticles.icns
 win32 {
 #CONFIG += static
 TEMPLATE=vcapp
-CINDER="C:\cinder_0.8.6_vc2013"
+#CINDER="C:\cinder_0.8.6_vc2013"
+CINDER="C:\Cinder-release"
 }
 
 macx {
@@ -24,17 +25,24 @@ INCLUDEPATH += $${CINDER}/boost/
 INCLUDEPATH += $${CINDER}/boost/boost/
 
 win32 {
-ARCH = x64
+ARCH = x86
 debug {
-LIBS += $${CINDER}/lib/msw/$${ARCH}/cinder-v120_d.lib
-} else {
-LIBS += $${CINDER}/lib/msw/$${ARCH}/cinder-v120.lib
+LIBS += $${CINDER}/lib/msw/$${ARCH}/cinder-v110_d.lib
+LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_filesystem-vc110-mt-gd-1_55.lib"
+LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_system-vc110-mt-gd-1_55.lib"
+LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_thread-vc110-mt-gd-1_55.lib"
+}
+release {
+LIBS += $${CINDER}/lib/msw/$${ARCH}/cinder-v110.lib
+LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_filesystem-vc110-mt-1_55.lib"
+LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_system-vc110-mt-1_55.lib"
+LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_thread-vc110-mt-1_55.lib"
 }
 #LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_chrono-vc120-mt-sgd-1_55.lib"
 #LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_date_time-vc120-mt-sgd-1_55.lib"
-#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_filesystem-vc120-mt-s-1_55.lib"
-#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_system-vc120-mt-sgd-1_55.lib"
-#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_thread-vc120-mt-sgd-1_55.lib"
+#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_filesystem-vc110-mt-1_55.lib"
+#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_system-vc110-mt-1_55.lib"
+#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_thread-vc110-mt-1_55.lib"
 #LIBS += $${CINDER}"/lib/msw/atls.lib"
 #LIBS += $${CINDER}"/lib/msw/atlthunk.lib"
 #LIBS += $${CINDER}"/lib/msw/cairo-static.lib"
