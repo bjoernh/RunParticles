@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget * parent,
                        Qt::WindowFlags flags) :
     QMainWindow(parent, flags),
     _fileIO(new MapFileIO(this)),
-    _menuBar(new QMenuBar(0)),
     _glWidget(new GLWidget()),
     _playbackWidget(new PlaybackWidget()),
     _layerListWidget(new LayerListWidget()),
@@ -46,11 +45,18 @@ MainWindow::MainWindow(QWidget * parent,
             _playbackWidget, &PlaybackWidget::updateStatus);
     connect(_trackFileReader, &TrackFileReader::signalDone,
             _playbackWidget, &PlaybackWidget::hideProgress);
-    
-    // Placeholder hidden centralWidget to keep Qt happy
-    QWidget *myCentralWidget = new QWidget();
+
+	// Placeholder hidden centralWidget to keep Qt happy
+	QWidget *myCentralWidget = new QWidget();
     setCentralWidget(myCentralWidget);
-    
+
+#ifdef Q_OS_MAC
+	_menuBar = new QMenuBar(0));
+#else
+	setObjectName("centralWidget");
+	_menuBar = menuBar();
+#endif
+
     /* file menu */
     QMenu *_fileMenu = _menuBar->addMenu("File");
     _newMapAction = new QAction("&New Map", this);
@@ -211,6 +217,15 @@ MainWindow::~MainWindow()
     // empty
 }
 
+#ifndef Q_OS_MAC
+void
+MainWindow::closeEvent(QCloseEvent *event)
+{
+	event->accept();
+	qApp->quit();
+}
+#endif
+
 void
 MainWindow::_setupShortcuts()
 {
@@ -339,6 +354,9 @@ MainWindow::saveSettings()
     _settings->saveWidgetState(_glWidget);
     _settings->saveWidgetState(_playbackWidget);
     _settings->saveWidgetState(_layerListWidget);
+#ifndef Q_OS_MAC
+	_settings->saveWidgetState(this);
+#endif
     QAction *recentAction;
     QList<QString> recents;
     foreach(recentAction, _recentLayersMenu->actions()) {
@@ -358,6 +376,10 @@ MainWindow::restoreSettings()
     _settings->restoreWidgetState(_glWidget);
     _settings->restoreWidgetState(_playbackWidget);
     _settings->restoreWidgetState(_layerListWidget);
+#ifndef Q_OS_MAC
+	_settings->restoreWidgetState(this);
+#endif
+
     QString path;
     foreach(path, _settings->getRecentMapFiles()) {
         _addPathToRecentMenu(_recentMapsMenu, path);

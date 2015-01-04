@@ -114,6 +114,10 @@ protected:
     enum {
         _numRecentFiles = 5
     };
+
+#ifndef Q_OS_MAC
+	void closeEvent(QCloseEvent *event);
+#endif
     
     void _layoutPlaybackControls(QWidget*);
     
