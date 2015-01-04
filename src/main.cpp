@@ -41,10 +41,6 @@ int main(int argc, char **argv)
     app.setApplicationVersion("1.0");
     
     MainWindow mainWindow;
-
-#ifndef Q_OS_MAC
-	mainWindow.show();
-#endif
     
     app.exec();
 }

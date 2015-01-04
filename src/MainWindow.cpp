@@ -1,6 +1,9 @@
 #include "MainWindow.h"
 
 #include <QApplication>
+#ifndef Q_OS_MAC
+#include <QGridLayout>
+#endif
 #include <QStandardPaths>
 #include <QDir>
 #include <QEventLoop>
@@ -46,14 +49,19 @@ MainWindow::MainWindow(QWidget * parent,
     connect(_trackFileReader, &TrackFileReader::signalDone,
             _playbackWidget, &PlaybackWidget::hideProgress);
 
-	// Placeholder hidden centralWidget to keep Qt happy
 	QWidget *myCentralWidget = new QWidget();
     setCentralWidget(myCentralWidget);
-
 #ifdef Q_OS_MAC
+	// Placeholder hidden centralWidget to keep Qt happy
 	_menuBar = new QMenuBar(0));
 #else
-	setObjectName("centralWidget");
+	// On non-Mac platforms the main window == the GLWidget
+	// We even set our object name to "GLWidget"
+	QGridLayout *layout = new QGridLayout(centralWidget());
+	_glWidget->setParent(centralWidget());
+	layout->setMargin(0);
+	layout->addWidget(_glWidget);
+	setObjectName("GLWidget");
 	_menuBar = menuBar();
 #endif
 
@@ -207,8 +215,12 @@ MainWindow::MainWindow(QWidget * parent,
     _glWidget->frameLonLatBox(_settings->getStartingViewArea());
     _layerListWidget->show();
     _playbackWidget->show();
+#ifdef Q_OS_MAC
     _glWidget->show();
-    
+#else
+	// we must be visible before adding layers
+    show();
+#endif
     _loadBaseMap();
 }
 
@@ -351,12 +363,13 @@ MainWindow::getNetworkCacheDir() const
 void
 MainWindow::saveSettings()
 {
+#ifdef Q_OS_MAC
     _settings->saveWidgetState(_glWidget);
-    _settings->saveWidgetState(_playbackWidget);
-    _settings->saveWidgetState(_layerListWidget);
-#ifndef Q_OS_MAC
+#else
 	_settings->saveWidgetState(this);
 #endif
+    _settings->saveWidgetState(_playbackWidget);
+    _settings->saveWidgetState(_layerListWidget);
     QAction *recentAction;
     QList<QString> recents;
     foreach(recentAction, _recentLayersMenu->actions()) {
@@ -373,12 +386,13 @@ MainWindow::saveSettings()
 void
 MainWindow::restoreSettings()
 {
+#ifdef Q_OS_MAC
     _settings->restoreWidgetState(_glWidget);
-    _settings->restoreWidgetState(_playbackWidget);
-    _settings->restoreWidgetState(_layerListWidget);
-#ifndef Q_OS_MAC
+#else
 	_settings->restoreWidgetState(this);
 #endif
+    _settings->restoreWidgetState(_playbackWidget);
+    _settings->restoreWidgetState(_layerListWidget);
 
     QString path;
     foreach(path, _settings->getRecentMapFiles()) {
