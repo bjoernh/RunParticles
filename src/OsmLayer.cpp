@@ -49,7 +49,12 @@ OsmLayer::OsmLayer() : Layer(),
     _quad.endList();
     
     // Initialize the copyright label displayList
-    _font = Font("Monaco", 80);
+#ifdef Q_OS_WIN
+    _font = Font("Arial", 80);
+#endif
+#ifdef Q_OS_MAC
+	_font = Font("Monaco", 80);
+#endif
     _tFont = gl::TextureFont::create( _font );
     std::string copyright("(c) OpenStreetMap contributors");
     _labelWidth = _tFont->measureString(copyright);
