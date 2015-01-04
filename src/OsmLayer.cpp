@@ -50,7 +50,7 @@ OsmLayer::OsmLayer() : Layer(),
     
     // Initialize the copyright label displayList
 #ifdef Q_OS_WIN
-    _font = Font("Arial", 80);
+    _font = Font("Arial", 120);
 #endif
 #ifdef Q_OS_MAC
 	_font = Font("Monaco", 80);
