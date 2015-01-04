@@ -13,15 +13,27 @@
 
 #include "Util.h"
 
+#ifdef Q_OS_MAC
+#define REWIND "\u25C0\u25C0"
+#define BACK "\u25C0"
+#define PAUSE "\u2588"
+#define FWD "\u25BA"
+#else
+#define REWIND "<<"
+#define BACK "<"
+#define PAUSE "||"
+#define FWD ">"
+#endif
+
 PlaybackWidget::PlaybackWidget(QWidget *parent) :
     QWidget(parent)
 {
     setObjectName("PlaybackWidget");
     setWindowTitle("Playback controls");
-    _rewindButton = new QPushButton(QString::fromUtf8("\u25C0\u25C0"), this);//<<
-    _backButton = new QPushButton(QString::fromUtf8("\u25C0"), this); // <
-    _pauseButton = new QPushButton(QString::fromUtf8("\u2588"), this); // [ ]
-    _forwardButton = new QPushButton(QString::fromUtf8("\u25BA"), this); // >
+    _rewindButton = new QPushButton(QString::fromUtf8(REWIND), this);//<<
+    _backButton = new QPushButton(QString::fromUtf8(BACK), this); // <
+    _pauseButton = new QPushButton(QString::fromUtf8(PAUSE), this); // [ ]
+    _forwardButton = new QPushButton(QString::fromUtf8(FWD), this); // >
     _playSpeedCombo = new QComboBox(this);
     _playSpeedCombo->addItem("1x");
     _playSpeedCombo->addItem("2x");
