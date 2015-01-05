@@ -1,16 +1,16 @@
 
 CONFIG += qt
 
-CONFIG += debug
+CONFIG += release
 
 TEMPLATE = app
 
 ICON = RunParticles.icns
 
+RC_ICONS = RunParticles.ico
+
 win32 {
-#CONFIG += static
 TEMPLATE=vcapp
-#CINDER="C:\cinder_0.8.6_vc2013"
 CINDER="C:\Cinder-release"
 }
 
@@ -26,31 +26,18 @@ INCLUDEPATH += $${CINDER}/boost/boost/
 
 win32 {
 ARCH = x86
-debug {
+CONFIG(debug, debug|release) {
 LIBS += $${CINDER}/lib/msw/$${ARCH}/cinder-v110_d.lib
 LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_filesystem-vc110-mt-gd-1_55.lib"
 LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_system-vc110-mt-gd-1_55.lib"
 LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_thread-vc110-mt-gd-1_55.lib"
 }
-release {
+CONFIG(release, debug|release) {
 LIBS += $${CINDER}/lib/msw/$${ARCH}/cinder-v110.lib
 LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_filesystem-vc110-mt-1_55.lib"
 LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_system-vc110-mt-1_55.lib"
 LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_thread-vc110-mt-1_55.lib"
 }
-#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_chrono-vc120-mt-sgd-1_55.lib"
-#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_date_time-vc120-mt-sgd-1_55.lib"
-#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_filesystem-vc110-mt-1_55.lib"
-#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_system-vc110-mt-1_55.lib"
-#LIBS += $${CINDER}"/lib/msw/$${ARCH}/libboost_thread-vc110-mt-1_55.lib"
-#LIBS += $${CINDER}"/lib/msw/atls.lib"
-#LIBS += $${CINDER}"/lib/msw/atlthunk.lib"
-#LIBS += $${CINDER}"/lib/msw/cairo-static.lib"
-#LIBS += $${CINDER}"/lib/msw/pixman-1.lib"
-#LIBS += $${CINDER}"/lib/msw/libpng.lib"
-#LIBS += $${CINDER}"/lib/msw/libjpeg.lib"
-#LIBS += $${CINDER}"/lib/msw/Wldap32.lib"
-#LIBS += $${CINDER}"/lib/msw/x86/zlib.lib"
 }
 
 macx {
@@ -63,8 +50,6 @@ QMAKE_LFLAGS += -L$${FRAMEWORKS}/AudioUnit.framework
 LIBS += -framework AudioUnit
 QMAKE_LFLAGS += -L$${FRAMEWORKS}/CoreAudio.framework
 LIBS += -framework CoreAudio
-#QMAKE_LFLAGS += -L$${FRAMEWORKS}/QuickTime.framework
-#LIBS += -framework QuickTime
 QMAKE_LFLAGS += -L$${FRAMEWORKS}/QTKit.framework
 LIBS += -framework QTKit
 QMAKE_LFLAGS += -L$${FRAMEWORKS}/CoreVideo.framework
@@ -88,9 +73,6 @@ LIBS += $${CINDER}/lib/libcinder.a
 LIBS += $${CINDER}"/lib/macosx/libboost_date_time.a"
 LIBS += $${CINDER}"/lib/macosx/libboost_filesystem.a"
 LIBS += $${CINDER}"/lib/macosx/libboost_system.a"
-#LIBS += "/usr/local/lib/libcairo.a"
-#LIBS += "/usr/local/lib/libpixman-1.a"
-#LIBS += "/usr/local/lib/libpng.a"
 CONFIG += -stdlib=libc++    
 QMAKE_CXXFLAGS += -std=c++11
 QMAKE_CXXFLAGS += -stdlib=libc++
