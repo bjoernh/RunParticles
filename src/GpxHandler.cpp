@@ -33,10 +33,11 @@ GpxHandler::parse(QFile *gpxFile)
                     << " column " << xml.columnNumber();;
                 }
                 _currentTrack = new Track();
-                _currentTrack->sport = "Unknown (gpx)";
                 _tracks->append(_currentTrack);
             } else if (name == "name" && _currentTrack) {
-                _currentTrack->name = xml.readElementText();
+                auto track_name = xml.readElementText();
+                _currentTrack->name = track_name;
+                _currentTrack->sport = track_name; // as a gpx fallback use track name as sport
             } else if (name == "trkseg") {
                 _depth += 1;
             } else if (name == "trkpt") {
