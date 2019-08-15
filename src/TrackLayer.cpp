@@ -22,16 +22,16 @@ TrackLayer::_setup()
 {
     _particle = gl::DisplayList(GL_COMPILE);
     _particle.newList();
-    gl::drawSolidCircle( Vec2d(0.f, 0.f), 10.);
+    gl::drawSolidCircle( Vec2d(0.f, 0.f), 2.);
     gl::color( Color( 0.3, 0.3, 0.3 ) );
-    gl::drawStrokedCircle( Vec2d(0.f, 0.f), 10.);
+    gl::drawStrokedCircle( Vec2d(0.f, 0.f), 2.);
     _particle.endList();
     
     _selectedParticle = gl::DisplayList(GL_COMPILE);
     _selectedParticle.newList();
     gl::color(SelectedColor);
-    gl::drawStrokedCircle(Vec2d(0.f, 0.f), 15.);
-    gl::drawStrokedCircle(Vec2d(0.f, 0.f), 20.);
+    gl::drawStrokedCircle(Vec2d(0.f, 0.f), 4.);
+    gl::drawStrokedCircle(Vec2d(0.f, 0.f), 6.);
     _selectedParticle.endList();
     
     _isSetup = true;
